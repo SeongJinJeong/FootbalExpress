@@ -1,21 +1,23 @@
 const express = require("express");
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const app = express();
 
-app.use(express.json());
 app.use(cors());
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({ extended: false }));
 
 app.get("/", (req, res) => {
   res.send("Fuck");
 });
 
 app.post("/loginPost",(req,res)=>{
-  console.log(req.body);
+  console.log(req.body.data);
 
   res.set('Access-Control-Allow-Origin','*');
-  res.status(200).send({
-    "msg" : "Your Request is Successful"
+  res.status(200).json({
+    msg : "Your Request is Successful"
   });
 });
 
