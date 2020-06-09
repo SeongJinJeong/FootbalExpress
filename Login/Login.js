@@ -12,7 +12,7 @@ const con = mysql.createConnection({
   database: "Football",
 });
 
-con.connect();
+// con.connect();
 
 router.use(express.json());
 router.use(cors());
