@@ -5,14 +5,14 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 
 const mysql = require("mysql");
-const con = mysql.createConnection({
+const conn = mysql.createConnection({
   host: "localhost",
   user: "Admin",
   password: "python8745",
   database: "Football",
 });
 
-// con.connect();
+conn.connect();
 
 router.use(express.json());
 router.use(cors());
@@ -20,7 +20,7 @@ router.use(cors());
 router.post("/loginPost", (req, res) => {
   console.log(req.body.data);
 
-  con.query(
+  conn.query(
     "SELECT * FROM User WHERE id=? AND password=?",
     [req.body.data.id, req.body.data.passwd],
     (err, rows, fields) => {
