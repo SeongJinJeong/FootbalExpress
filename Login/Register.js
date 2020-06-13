@@ -17,16 +17,45 @@ router.post("/registerPost", (req, res) => {
   console.log(req.body);
 
   conn.query(
-    "insert into User(id,password,name) value(?,?,?);",
-    [req.body.data.id, req.body.data.password, req.body.data.name],
+    "select * from user where id=? or name=?",
+    [req.body.data.id, req.body.data.name],
     (err, rows, fields) => {
-      if (err) console.log(err);
+      if (err) {
+        console.log(err);
+        res.status(200).json({
+          msg: "Something went wrong",
+          succeed: false,
+        });
+      } else {
+        if (rows.length > 0) {
+          res.status(200).json({
+            msg: "ID or NICKNAME is already exists",
+            succeed: false,
+          });
+        } else {
+          conn.query(
+            "insert into User(id,password,name) value(?,?,?);",
+            [req.body.data.id, req.body.data.password, req.body.data.name],
+            (err, rows, fields) => {
+              console.log(rows);
+              if (err) {
+                console.log(err);
+                res.status(200).json({
+                  msg: "Something went wrong",
+                  succeed: false,
+                });
+              } else {
+                res.status(200).json({
+                  msg: "Your Register is Success",
+                  succeed: true,
+                });
+              }
+            }
+          );
+        }
+      }
     }
   );
-
-  res.json({
-    msg: "Your Register is Success",
-  });
 });
 
 module.exports = router;
