@@ -20,10 +20,27 @@ router.use(cors());
 router.post("/loginPost", (req, res) => {
   console.log(req.body.data);
 
-  res.set("Access-Control-Allow-Origin", "*");
-  res.status(200).json({
-    msg: "Your Request is Successful",
-  });
+  con.query(
+    "SELECT * FROM User WHERE id=? AND password=?",
+    [req.body.data.id, req.body.data.passwd],
+    (err, rows, fields) => {
+      if (err) console.log(err);
+      if (rows.length < 1) {
+        res.set("Access-Control-Allow-Origin", "*");
+        res.status(200).json({
+          msg: "NO ACCOUNT EXIST",
+          succeed: false,
+        });
+      } else {
+        res.set("Access-Control-Allow-Origin", "*");
+        res.status(200).json({
+          msg: "Your Request is Successful",
+          succeed: true,
+        });
+      }
+      console.log(rows);
+    }
+  );
 });
 
 module.exports = router;

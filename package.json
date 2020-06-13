@@ -4,11 +4,15 @@
   "description": "React_Football Server",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "server": "nodemon server.js",
+    "front": "cd React_Football && yarn start",
+    "dev": "concurrently \"npm run server\" \"npm run front\""
   },
   "author": "SeongJin Jeong",
   "license": "ISC",
   "dependencies": {
+    "concurrently": "5.2.0",
     "cors": "2.8.5",
     "express": "4.17.1",
     "mysql": "2.18.1"
