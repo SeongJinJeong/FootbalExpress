@@ -56,7 +56,6 @@ router.post("/loginPost", async (req, res) => {
           }
         );
       }
-      console.log(rows[0].password);
     }
   );
 });
