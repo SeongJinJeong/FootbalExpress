@@ -45,6 +45,7 @@ router.post("/loginPost", async (req, res) => {
               res.status(200).json({
                 msg: "Your Request is Successful",
                 succeed: true,
+                info: rows[0],
               });
             } else if (result == false) {
               res.set("Access-Control-Allow-Origin", "*");
