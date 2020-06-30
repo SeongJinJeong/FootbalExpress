@@ -43,6 +43,7 @@ router.post("/info", (req, res) => {
             no: rows[0].No,
             name: rows[0].name,
             id: rows[0].id,
+            tags: rows[0].tags,
           },
         });
       }
